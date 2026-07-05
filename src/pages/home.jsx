@@ -1,20 +1,16 @@
+import { useState } from 'react';
 import CoinCard from '../components/CoinCard';
 import LimitSelector from '../components/LimitSelector';
 import FilterInput from '../components/FilterInput';
 import SortSelector from '../components/SortSelector';
+import useCoins from '../hooks/useCoins';
 import Spinner from '../components/Spinner';
 
-const HomePage = ({
-  coins,
-  filter,
-  setFilter,
-  limit,
-  setLimit,
-  sortBy,
-  setSortBy,
-  loading,
-  error,
-}) => {
+const HomePage = () => {
+  const [limit, setLimit] = useState(10);
+  const [filter, setFilter] = useState('');
+  const [sortBy, setSortBy] = useState('market_cap_desc');
+  const { coins, loading, error } = useCoins(limit);
   const filteredCoins = coins
     .filter((coin) => {
       return (
